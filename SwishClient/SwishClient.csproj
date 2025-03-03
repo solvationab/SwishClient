@@ -15,4 +15,58 @@
 	  <PackageProjectUrl>https://github.com/solvationab/SwishClient</PackageProjectUrl>
   </PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.2" />
+		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="3.0.1" />
+		<PackageReference Include="MinVer" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Refit" Version="8.0.0" />
+		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
+		<PackageReference Include="System.Threading.RateLimiting" Version="9.0.2" />
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<EnablePackageValidation>true</EnablePackageValidation>
+
+		<!-- Optional: Detect breaking changes from a previous version -->
+		<!-- <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion> -->
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+		<!-- If all members are not documented, you can disable the compiler warnings -->
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!--
+        Add an icon.png next to the csproj:
+        - Supported format: png, jpg
+        - Recommended dimensions: 128x128
+        - Maximum size: 1MB
+    -->
+		<None Include="icon.png" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Add a README.md next to the csproj -->
+		<None Include="README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+
 </Project>
