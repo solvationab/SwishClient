@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwishClient", "SwishClient\SwishClient.csproj", "{DDC483DF-E7FE-4B3A-A659-0D888E9D0AA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwishClientTests", "SwishClientTests\SwishClientTests.csproj", "{2ED6952B-0E5B-4B65-BCBC-D1ED5D35C923}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDC483DF-E7FE-4B3A-A659-0D888E9D0AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC483DF-E7FE-4B3A-A659-0D888E9D0AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC483DF-E7FE-4B3A-A659-0D888E9D0AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC483DF-E7FE-4B3A-A659-0D888E9D0AA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ED6952B-0E5B-4B65-BCBC-D1ED5D35C923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ED6952B-0E5B-4B65-BCBC-D1ED5D35C923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ED6952B-0E5B-4B65-BCBC-D1ED5D35C923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ED6952B-0E5B-4B65-BCBC-D1ED5D35C923}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46D46A83-41B1-4D98-939C-4F2BB8D4ADC8}
+	EndGlobalSection
+EndGlobal

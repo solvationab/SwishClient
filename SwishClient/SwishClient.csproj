@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <Title>Swish Client</Title>
+	  <Description>A .NET client for Swish</Description>
+	  <PackageTags>Swish</PackageTags>
+	  <PackageId>Solvation.SwishClient</PackageId>
+	  <Authors>Patrik Backhuvud</Authors>
+	  <Company>Solvation AB</Company>
+	  <MinVerTagPrefix>v</MinVerTagPrefix>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageIcon>icon.png</PackageIcon>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageProjectUrl>https://github.com/solvationab/SwishClient</PackageProjectUrl>
+  </PropertyGroup>
+
+</Project>
