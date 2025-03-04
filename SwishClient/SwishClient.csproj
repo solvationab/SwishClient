@@ -69,4 +69,12 @@
 		<None Include="README.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Dto\MerchantSwishSimulator\" />
+	  <Folder Include="Dto\RecurringPayments\" />
+	  <Folder Include="Dto\QrCodes\" />
+	  <Folder Include="Dto\Payouts\" />
+	  <Folder Include="Dto\Refunds\" />
+	</ItemGroup>
+
 </Project>
