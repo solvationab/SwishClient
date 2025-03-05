@@ -2,83 +2,14 @@
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
-namespace SwishClient.Dto.PaymentRequests
+namespace SwishClient.Dto.Payments
 {
     /// <summary>
     /// The Payment Request Object is used in all payment request operations and the provided data object (body) should be in JSON format.
     /// </summary>
-    public class SwishPaymentRequestDto
+    public class PaymentDto
     {
-        /// <summary>
-        /// Create a new E-commerce SwishPaymentRequestDto
-        /// </summary>
-        /// <param name="payeePaymentReference"></param>
-        /// <param name="callbackUrl"></param>
-        /// <param name="payerAlias"></param>
-        /// <param name="payeeAlias"></param>
-        /// <param name="amount"></param>
-        /// <param name="callbackIdentifier"></param>
-        /// <param name="message"></param>
-        public SwishPaymentRequestDto(
-            string payeePaymentReference,
-            string callbackUrl,
-            string payerAlias,
-            string payeeAlias,
-            decimal amount,
-            string callbackIdentifier,
-            string message
-            ) : this(
-                null,
-                payeePaymentReference,
-                null,
-                callbackUrl,
-                payerAlias,
-                null,
-                payeeAlias,
-                1,
-                amount,
-                "SEK",
-                callbackIdentifier,
-                message,
-                null,
-                null)
-        { }
-
-        /// <summary>
-        /// Create a new M-commerce SwishPaymentRequestDto
-        /// </summary>
-        /// <param name="payeePaymentReference"></param>
-        /// <param name="callbackUrl"></param>
-        /// <param name="payeeAlias"></param>
-        /// <param name="amount"></param>
-        /// <param name="callbackIdentifier"></param>
-        /// <param name="message"></param>
-        public SwishPaymentRequestDto(
-            string payeePaymentReference,
-            string callbackUrl,
-            string payeeAlias,
-            decimal amount,
-            string callbackIdentifier,
-            string message
-        ) : this(
-            null,
-            payeePaymentReference,
-            null,
-            callbackUrl,
-            null,
-            null,
-            payeeAlias,
-            1,
-            amount,
-            "SEK",
-            callbackIdentifier,
-            message,
-            null,
-            null)
-        { }
-
-        [JsonConstructor]
-        public SwishPaymentRequestDto(
+        public PaymentDto(
             string id,
             string payeePaymentReference,
             string paymentReference,
@@ -90,6 +21,9 @@ namespace SwishClient.Dto.PaymentRequests
             decimal amount,
             string currency,
             string callbackIdentifier,
+            string status,
+            DateTime dateCreated,
+            DateTime? datePaid,
             string message,
             string errorCode,
             string errorMessage
@@ -137,6 +71,9 @@ namespace SwishClient.Dto.PaymentRequests
             Currency = currency;
             CallbackIdentifier = callbackIdentifier;
             Message = message;
+            Status = status;
+            DateCreated = dateCreated;
+            DatePaid = datePaid;
             ErrorCode = errorCode;
             ErrorMessage = errorMessage;
         }
@@ -212,6 +149,15 @@ namespace SwishClient.Dto.PaymentRequests
         /// </summary>
         [JsonPropertyName("callbackIdentifier")]
         public string CallbackIdentifier { get; }
+
+        [JsonPropertyName("status")]
+        public string Status { get; }
+
+        [JsonPropertyName("dateCreated")]
+        public DateTime DateCreated { get; }
+
+        [JsonPropertyName("datePaid")]
+        public DateTime? DatePaid { get; }
 
         [JsonPropertyName("errorCode")]
         public string ErrorCode { get; } 

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Refit;
+using SwishClient.Clients;
+using SwishClient.DelegatingHandlers;
 using SwishClient.JsonConverters;
 using System;
 using System.Text.Json;
-using SwishClient.DelegatingHandlers;
 
 namespace SwishClient.Extensions
 {
@@ -24,37 +24,9 @@ namespace SwishClient.Extensions
                 .AddScoped<HttpLoggingHandler>();
 
             // Add the Swish API
-            services
-                .AddRefitClient<ISwishClient>(sp =>
-                {
-                    var settings = new RefitSettings
-                    {
-                        ContentSerializer = new SystemTextJsonContentSerializer(GetJsonSerializerOptions())
-                    };
-
-                    //settings.ExceptionFactory = async responseMessage =>
-                    //{
-                    //    if (responseMessage.IsSuccessStatusCode)
-                    //        return null;
-
-                    //    var SwishError = await responseMessage.Content.ReadFromJsonAsync<SwishErrorResponse>();
-
-                    //    if (SwishError?.ErrorInformation != null)
-                    //    {
-                    //        return new SwishException(SwishError);
-                    //    }
-
-                    //    var requestMessage = responseMessage.RequestMessage;
-
-                    //    var method = requestMessage.Method;
-
-                    //    return await ApiException
-                    //        .Create(requestMessage, method, responseMessage, settings);
-                    //};
-
-                    return settings;
-                })
-                .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://api.Swish.se"))
+            services.AddHttpClient<IPaymentClient, PaymentClient>()
+                //.ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://cpc.getswish.net/swish-cpcapi"))
+                .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://mss.cpc.getswish.net"))
                 .AddHttpMessageHandler<HttpLoggingHandler>();
 
             return services;
