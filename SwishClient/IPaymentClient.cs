@@ -8,6 +8,6 @@ namespace SwishClient
         Task<CreateEcommercePaymentResponse> CreateEcommercePayment(string instructionUuid, CreateEcommercePaymentRequest request);
         Task<CreateMcommercePaymentResponse> CreateMcommercePayment(string instructionUuid, CreateMcommercePaymentRequest request);
         Task<PaymentDto> GetPayment(string id);
-        Task<PaymentDto> UpdatePayment(string id, UpdatePaymentRequest request);
+        Task<PaymentDto> CancelPayment(string id);
     }
 }
