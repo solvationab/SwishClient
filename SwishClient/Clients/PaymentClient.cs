@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SwishClient.Dto.Payments;
+using SwishClient.Extensions;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using SwishClient.Dto.Payments;
-using SwishClient.Extensions;
 
 namespace SwishClient.Clients
 {
@@ -33,7 +33,9 @@ namespace SwishClient.Clients
 
         public async Task<CreateMcommercePaymentResponse> CreateMcommercePayment(string instructionUuid, CreateMcommercePaymentRequest request)
         {
-            var response = await client.PutAsJsonAsync($"/api/v2/paymentrequests/{instructionUuid}", request);
+            var requestUri = $"/api/v2/paymentrequests/{instructionUuid}";
+
+            var response = await client.PutAsJsonAsync(requestUri, request);
 
             var location = response.Headers.Location;
 
@@ -42,17 +44,19 @@ namespace SwishClient.Clients
             return new CreateMcommercePaymentResponse(location, paymentRequestToken);
         }
 
-        public async Task<PaymentDto> GetPayment(string id)
+        public Task<PaymentDto> GetPayment(string id)
         {
-            var response = await client.GetFromJsonAsync<PaymentDto>($"/api/v1/paymentrequests/{id}");
+            var requestUri = $"/api/v1/paymentrequests/{id}";
 
-            return response;
+            return client.GetFromJsonAsync<PaymentDto>(requestUri);
         }
 
         public async Task<PaymentDto> CancelPayment(string id)
         {
+            var requestUri = $"/api/v1/paymentrequests/{id}";
+
             var response = await client.PatchAsJsonAsync(
-                $"/api/v1/paymentrequests/{id}",
+                requestUri,
                 new [] { new { op = "replace", path = "/status", value = "cancelled" } }
                 );
 
