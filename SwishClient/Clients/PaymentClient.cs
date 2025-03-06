@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -13,6 +14,9 @@ namespace SwishClient.Clients
 
         public PaymentClient(HttpClient client)
         {
+            if (client == null) 
+                throw new ArgumentNullException(nameof(client));
+
             this.client = client;
         }
 
