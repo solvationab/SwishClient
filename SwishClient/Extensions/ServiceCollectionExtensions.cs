@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
+using SwishClient.Config;
 
 namespace SwishClient.Extensions
 {
@@ -15,13 +16,20 @@ namespace SwishClient.Extensions
     {
         /// <summary>
         /// This extension method adds Swish api to the service collection.
-        ///
+        /// 
         /// To work it need a SwishConfig added to the service collection.
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="configuration"></param>
         /// <returns>The IServiceCollection to allow chaining</returns>
-        public static IServiceCollection AddSwishClient(this IServiceCollection services)
+        public static IServiceCollection AddSwishClient(this IServiceCollection services, IConfiguration configuration)
         {
+            // Read the SwishConfig from the configuration to make sure we have what we need
+            var swishConfig = configuration.GetRequiredSection("SwishConfig").Get<SwishConfig>();
+
+            // Add the SwishConfig to the service collection
+            services.AddSingleton(swishConfig);
+
             // Add delegating handlers used by the Swish Client
             services
                 .AddScoped<HttpLoggingHandler>();
@@ -32,7 +40,10 @@ namespace SwishClient.Extensions
                 .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://mss.cpc.getswish.net")) // MSS
                 .ConfigurePrimaryHttpMessageHandler(sp =>
                 {
-                    var clientCertificate = new X509Certificate2("", "swish");
+                    var clientCertificate = new X509Certificate2(
+                        swishConfig.ClientCertificateFilename, 
+                        swishConfig.ClientCertificatePassword
+                        );
 
                     var handler = new HttpClientHandler();
 

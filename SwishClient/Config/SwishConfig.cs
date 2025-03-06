@@ -2,13 +2,13 @@
 {
     public class SwishConfig
     {
-        public SwishConfig(string clientId, string clientSecret)
+        public SwishConfig(string clientCertificateFilename, string clientCertificatePassword)
         {
-            ClientId = clientId;
-            ClientSecret = clientSecret;
+            ClientCertificateFilename = clientCertificateFilename;
+            ClientCertificatePassword = clientCertificatePassword;
         }
 
-        public string ClientId { get; }
-        public string ClientSecret { get; }
+        public string ClientCertificateFilename { get; }
+        public string ClientCertificatePassword { get; }
     }
 }
