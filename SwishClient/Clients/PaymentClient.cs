@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
-using System.Net.Http.Json;
 using SwishClient.Dto.Payments;
+using SwishClient.Extensions;
 
 namespace SwishClient.Clients
 {
@@ -51,7 +52,9 @@ namespace SwishClient.Clients
                 new [] { new { op = "replace", path = "/status", value = "cancelled" } }
                 );
 
-            return await response.Content.ReadFromJsonAsync<PaymentDto>();
+            var stream = await response.Content.ReadAsStreamAsync();
+
+            return await JsonSerializer.DeserializeAsync<PaymentDto>(stream);
         }
     }
 }

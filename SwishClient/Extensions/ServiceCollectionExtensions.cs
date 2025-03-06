@@ -4,6 +4,9 @@ using SwishClient.Clients;
 using SwishClient.DelegatingHandlers;
 using SwishClient.JsonConverters;
 using System;
+using System.Net.Http;
+using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
 namespace SwishClient.Extensions
@@ -27,6 +30,20 @@ namespace SwishClient.Extensions
             services.AddHttpClient<IPaymentClient, PaymentClient>()
                 //.ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://cpc.getswish.net/swish-cpcapi")) // Prod
                 .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://mss.cpc.getswish.net")) // MSS
+                .ConfigurePrimaryHttpMessageHandler(sp =>
+                {
+                    var clientCertificate = new X509Certificate2("", "swish");
+
+                    var handler = new HttpClientHandler();
+
+                    handler.SslProtocols = SslProtocols.Tls12;
+                    handler.ClientCertificates.Add(clientCertificate);
+
+                    // TODO: Make sure we verify the server certificate
+                    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+
+                    return handler;
+                })
                 .AddHttpMessageHandler<HttpLoggingHandler>();
 
             return services;
