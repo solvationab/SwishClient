@@ -17,7 +17,7 @@ namespace SwishClient.Extensions
         /// <summary>
         /// This extension method adds Swish api to the service collection.
         /// 
-        /// To work it need a SwishConfig added to the service collection.
+        /// To work it need a SwishConfig SECTION in the configuration.
         /// </summary>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
