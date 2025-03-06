@@ -25,8 +25,8 @@ namespace SwishClient.Extensions
 
             // Add the Swish API
             services.AddHttpClient<IPaymentClient, PaymentClient>()
-                //.ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://cpc.getswish.net/swish-cpcapi"))
-                .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://mss.cpc.getswish.net"))
+                //.ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://cpc.getswish.net/swish-cpcapi")) // Prod
+                .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://mss.cpc.getswish.net")) // MSS
                 .AddHttpMessageHandler<HttpLoggingHandler>();
 
             return services;
