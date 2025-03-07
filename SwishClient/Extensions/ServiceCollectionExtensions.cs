@@ -12,6 +12,9 @@ using System.Text.Json;
 
 namespace SwishClient.Extensions
 {
+    /// <summary>
+    /// This class contains extension methods for IServiceCollection
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
         /// <summary>
