@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwishClient", "SwishClient\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwishClientTests", "SwishClientTests\SwishClientTests.csproj", "{2ED6952B-0E5B-4B65-BCBC-D1ED5D35C923}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{CA60FFC6-755E-42E5-95C9-2DFD55590943}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2ED6952B-0E5B-4B65-BCBC-D1ED5D35C923}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ED6952B-0E5B-4B65-BCBC-D1ED5D35C923}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ED6952B-0E5B-4B65-BCBC-D1ED5D35C923}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA60FFC6-755E-42E5-95C9-2DFD55590943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA60FFC6-755E-42E5-95C9-2DFD55590943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA60FFC6-755E-42E5-95C9-2DFD55590943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA60FFC6-755E-42E5-95C9-2DFD55590943}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

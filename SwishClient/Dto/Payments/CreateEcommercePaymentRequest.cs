@@ -47,7 +47,7 @@ namespace SwishClient.Dto.Payments
             if (currency != "SEK")
                 throw new ArgumentException("The only currently supported value is SEK", nameof(currency));
 
-            if (!Regex.IsMatch(message, @"^[a-zA-Z0-9!?(),.-:;]{1,50}$"))
+            if (!Regex.IsMatch(message, @"^[a-öA-Ö0-9!?(),.-:; ]{1,50}$"))
                 throw new ArgumentException("Allowed characters are a-z A-Z 0-9 ! ? ( ) , . - : ; and len must be 1 to 50", nameof(message));
 
             if (callbackIdentifier != null && !Regex.IsMatch(callbackIdentifier, "^[0-9a-zA-Z-]{32,36}$"))

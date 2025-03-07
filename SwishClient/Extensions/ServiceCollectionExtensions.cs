@@ -1,14 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SwishClient.Clients;
+using SwishClient.Config;
 using SwishClient.DelegatingHandlers;
 using SwishClient.JsonConverters;
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
-using SwishClient.Config;
 
 namespace SwishClient.Extensions
 {
@@ -27,6 +28,13 @@ namespace SwishClient.Extensions
             // Read the SwishConfig from the configuration to make sure we have what we need
             var swishConfig = configuration.GetRequiredSection("SwishConfig").Get<SwishConfig>();
 
+            // Load the client certificate to make sure we have it
+            var clientCertificate = new X509Certificate2(
+                swishConfig.ClientCertificateFilename,
+                swishConfig.ClientCertificatePassword,
+                X509KeyStorageFlags.UserKeySet
+            );
+
             // Add the SwishConfig to the service collection
             services.AddSingleton(swishConfig);
 
@@ -36,18 +44,18 @@ namespace SwishClient.Extensions
 
             // Add the Swish API
             services.AddHttpClient<IPaymentClient, PaymentClient>()
-                //.ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://cpc.getswish.net/swish-cpcapi")) // Prod
-                .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://mss.cpc.getswish.net")) // MSS
+                //.ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://cpc.getswish.net/swish-cpcapi/")) // Prod
+                .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://mss.cpc.getswish.net/swish-cpcapi/")) // MSS
                 .ConfigurePrimaryHttpMessageHandler(sp =>
                 {
-                    var clientCertificate = new X509Certificate2(
-                        swishConfig.ClientCertificateFilename, 
-                        swishConfig.ClientCertificatePassword
-                        );
-
                     var handler = new HttpClientHandler();
 
+                    //var certBytes = File.ReadAllBytes(swishConfig.ClientCertificateFilename);
+
+                    //SetCertificate(handler, certBytes, swishConfig.ClientCertificatePassword);
+
                     handler.SslProtocols = SslProtocols.Tls12;
+
                     handler.ClientCertificates.Add(clientCertificate);
 
                     // TODO: Make sure we verify the server certificate
@@ -82,6 +90,31 @@ namespace SwishClient.Extensions
                 //DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
                 Converters = { new JsonStringEnumConverterEx() }
             };
+        }
+
+        private static void SetCertificate(HttpClientHandler handler, byte[] certBytes, string password)
+        {
+            var certs = new X509Certificate2Collection();
+
+            certs.Import(certBytes, password, X509KeyStorageFlags.UserKeySet);
+
+            foreach (var cert in certs)
+            {
+                if (cert.HasPrivateKey)
+                {
+                    handler.ClientCertificates.Add(cert);
+                }
+                else
+                {
+                    //Add the intermediate certificate to the trusted root store
+                    //which acts as a cache during the TLS handshake
+                    using (var store = new X509Store(StoreName.CertificateAuthority, StoreLocation.CurrentUser))
+                    {
+                        store.Open(OpenFlags.ReadWrite);
+                        store.Add(cert);
+                    }
+                }
+            }
         }
     }
 }
