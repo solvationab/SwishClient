@@ -5,7 +5,6 @@ using SwishClient.Config;
 using SwishClient.DelegatingHandlers;
 using SwishClient.JsonConverters;
 using System;
-using System.IO;
 using System.Net.Http;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
