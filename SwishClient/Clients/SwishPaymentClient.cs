@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SwishClient.Clients
 {
-    public class PaymentClient : IPaymentClient, IDisposable
+    public class SwishPaymentClient : ISwishPaymentClient, IDisposable
     {
         private readonly HttpClient client;
 
-        public PaymentClient(HttpClient client)
+        public SwishPaymentClient(HttpClient client)
         {
             if (client == null) 
                 throw new ArgumentNullException(nameof(client));

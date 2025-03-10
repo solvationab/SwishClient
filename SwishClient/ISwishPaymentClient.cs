@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SwishClient
 {
-    public interface IPaymentClient
+    public interface ISwishPaymentClient
     {
         Task<CreateEcommercePaymentResponse> CreateEcommercePayment(string instructionUuid, CreateEcommercePaymentRequest request);
         Task<CreateMcommercePaymentResponse> CreateMcommercePayment(string instructionUuid, CreateMcommercePaymentRequest request);
