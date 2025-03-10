@@ -56,10 +56,6 @@ namespace SwishClient.Extensions
 
                     handler.ClientCertificates.Add(clientCertificate);
 
-                    // TODO: Make sure we verify the server certificate
-                    // Issue URL: https://github.com/solvationab/SwishClient/issues/1
-                    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
-
                     return handler;
                 })
                 .AddHttpMessageHandler<HttpLoggingHandler>();
@@ -75,9 +71,6 @@ namespace SwishClient.Extensions
                     handler.SslProtocols = SslProtocols.Tls12;
 
                     handler.ClientCertificates.Add(clientCertificate);
-
-                    // TODO: Make sure we verify the server certificate
-                    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
 
                     return handler;
                 })
