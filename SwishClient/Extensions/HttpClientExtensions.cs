@@ -7,6 +7,13 @@ namespace SwishClient.Extensions
 {
     public static class HttpClientExtensions
     {
+        public static Task<HttpResponseMessage> PostAsJsonAsync<T>(this HttpClient client, string requestUri, T value)
+        {
+            var content = new StringContent(JsonSerializer.Serialize(value), Encoding.UTF8, "application/json");
+
+            return client.PostAsync(requestUri, content);
+        }
+
         public static Task<HttpResponseMessage> PutAsJsonAsync<T>(this HttpClient client, string requestUri, T value)
         {
             var content = new StringContent(JsonSerializer.Serialize(value), Encoding.UTF8, "application/json");
