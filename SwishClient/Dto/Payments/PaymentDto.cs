@@ -171,18 +171,33 @@ namespace SwishClient.Dto.Payments
         [JsonPropertyName("callbackIdentifier")]
         public string CallbackIdentifier { get; }
 
+        /// <summary>
+        /// The status of the payment request.
+        /// </summary>
         [JsonPropertyName("status")]
         public PaymentStatusDto Status { get; }
 
+        /// <summary>
+        /// The date and time when the payment request was created.
+        /// </summary>
         [JsonPropertyName("dateCreated")]
         public DateTime DateCreated { get; }
 
+        /// <summary>
+        /// The date and time when the payment was paid.
+        /// </summary>
         [JsonPropertyName("datePaid")]
         public DateTime? DatePaid { get; }
 
+        /// <summary>
+        /// Error code if the payment request failed.
+        /// </summary>
         [JsonPropertyName("errorCode")]
-        public string ErrorCode { get; } 
+        public string ErrorCode { get; }
 
+        /// <summary>
+        /// Error message if the payment request failed.
+        /// </summary>
         [JsonPropertyName("errorMessage")]
         public string ErrorMessage { get; }
     }
