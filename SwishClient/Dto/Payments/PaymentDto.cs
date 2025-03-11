@@ -9,6 +9,27 @@ namespace SwishClient.Dto.Payments
     /// </summary>
     public class PaymentDto
     {
+        /// <summary>
+        /// Constructor for PaymentDto
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="payeePaymentReference"></param>
+        /// <param name="paymentReference"></param>
+        /// <param name="callbackUrl"></param>
+        /// <param name="payerAlias"></param>
+        /// <param name="payerSsn"></param>
+        /// <param name="payeeAlias"></param>
+        /// <param name="ageLimit"></param>
+        /// <param name="amount"></param>
+        /// <param name="currency"></param>
+        /// <param name="callbackIdentifier"></param>
+        /// <param name="statusDto"></param>
+        /// <param name="dateCreated"></param>
+        /// <param name="datePaid"></param>
+        /// <param name="message"></param>
+        /// <param name="errorCode"></param>
+        /// <param name="errorMessage"></param>
+        /// <exception cref="ArgumentException"></exception>
         public PaymentDto(
             string id,
             string payeePaymentReference,
@@ -21,7 +42,7 @@ namespace SwishClient.Dto.Payments
             decimal amount,
             string currency,
             string callbackIdentifier,
-            string status,
+            PaymentStatusDto status,
             DateTime dateCreated,
             DateTime? datePaid,
             string message,
@@ -151,7 +172,7 @@ namespace SwishClient.Dto.Payments
         public string CallbackIdentifier { get; }
 
         [JsonPropertyName("status")]
-        public string Status { get; }
+        public PaymentStatusDto Status { get; }
 
         [JsonPropertyName("dateCreated")]
         public DateTime DateCreated { get; }
