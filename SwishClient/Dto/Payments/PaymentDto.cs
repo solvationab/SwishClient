@@ -23,7 +23,7 @@ namespace SwishClient.Dto.Payments
         /// <param name="amount"></param>
         /// <param name="currency"></param>
         /// <param name="callbackIdentifier"></param>
-        /// <param name="statusDto"></param>
+        /// <param name="status"></param>
         /// <param name="dateCreated"></param>
         /// <param name="datePaid"></param>
         /// <param name="message"></param>
