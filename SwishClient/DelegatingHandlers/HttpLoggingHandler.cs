@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace SwishClient.DelegatingHandlers
 {
@@ -48,7 +47,7 @@ namespace SwishClient.DelegatingHandlers
 
             var start = DateTime.Now;
 
-            var response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
+            var response = await base.SendAsync(request, cancellationToken);
 
             var end = DateTime.Now;
 
@@ -83,16 +82,17 @@ namespace SwishClient.DelegatingHandlers
             }
 
             logger.LogDebug($"{msg}==========End==========");
+
             return response;
         }
 
-        readonly string[] types = new[] { "html", "text", "xml", "json", "txt", "x-www-form-urlencoded" };
+        readonly string[] types = { "html", "text", "xml", "json", "txt", "x-www-form-urlencoded" };
 
         bool IsTextBasedContentType(HttpHeaders headers)
         {
-            IEnumerable<string> values;
-            if (!headers.TryGetValues("Content-Type", out values))
+            if (!headers.TryGetValues("Content-Type", out var values))
                 return false;
+
             var header = string.Join(" ", values).ToLowerInvariant();
 
             return types.Any(t => header.Contains(t));
