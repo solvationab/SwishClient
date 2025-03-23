@@ -6,6 +6,7 @@ using SwishClient.DelegatingHandlers;
 using SwishClient.JsonConverters;
 using System;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
@@ -44,10 +45,19 @@ namespace SwishClient.Extensions
             services
                 .AddScoped<HttpLoggingHandler>();
 
+            //var baseUrl = "https://cpc.getswish.net"; // Prod
+            var baseUrl = "https://mss.cpc.getswish.net"; // MSS
+
+            var userAgent = $"SwishClient/{Assembly.GetExecutingAssembly().GetName().Version} (Made by Solvation AB)";
+
             // Add the Swish Payment Client
             services.AddHttpClient<ISwishPaymentClient, SwishPaymentClient>()
-                //.ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://cpc.getswish.net/swish-cpcapi/")) // Prod
-                .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://mss.cpc.getswish.net/swish-cpcapi/")) // MSS
+                .ConfigureHttpClient(httpClient =>
+                {
+                    httpClient.BaseAddress = new Uri($"{baseUrl}/swish-cpcapi/");
+
+                    httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
+                }) 
                 .ConfigurePrimaryHttpMessageHandler(sp =>
                 {
                     var handler = new HttpClientHandler();
@@ -62,8 +72,12 @@ namespace SwishClient.Extensions
 
             // Add the Swish QrCode Client
             services.AddHttpClient<ISwishQrCodeClient, SwishQrCodeClient>()
-                //.ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://mpc.getswish.net/qrg-swish/")) // Prod
-                .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri("https://mss.mpc.getswish.net/qrg-cpcapi/")) // MSS
+                .ConfigureHttpClient(httpClient =>
+                {
+                    httpClient.BaseAddress = new Uri($"{baseUrl}/qrg-cpcapi/");
+
+                    httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
+                }) 
                 .ConfigurePrimaryHttpMessageHandler(sp =>
                 {
                     var handler = new HttpClientHandler();
