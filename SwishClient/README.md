@@ -25,3 +25,8 @@ var response = await swishClient.Authenticate();
 ## Feedback
 
 https://github.com/solvationab/SwishClient
+
+## Missing something or need help?
+
+Contact us at info@solvation.se
+
